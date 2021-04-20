@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Nav() {
   const [searchedSpell, setSearchedSpell] = useState("");
@@ -8,10 +9,20 @@ export default function Nav() {
   function handleSearch(e) {
     setSearchedSpell(e.target.value);
   }
-  function handleClick(e) {
+  async function handleClick(e) {
     e.preventDefault();
-    console.log(searchedSpell);
     setSearchedSpell("");
+    // Search the api here
+    const propperText = searchedSpell.split(" ").join("-");
+    console.log(propperText);
+    try {
+      const spell = await axios.get(
+        `https://www.dnd5eapi.co/api/spells/${propperText}`
+      );
+      console.log(spell.data); // gets the spell and use for later use
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <StyledNav>
@@ -34,6 +45,7 @@ export default function Nav() {
 const StyledNav = styled(motion.nav)`
   padding: 3rem 5rem;
   text-align: center;
+  overflow-wrap: break-word;
   input {
     width: 30%;
     font-size: 1.5rem;
