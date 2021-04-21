@@ -13,7 +13,7 @@ export default function Nav() {
     e.preventDefault();
     setSearchedSpell("");
     // Search the api here
-    const propperText = searchedSpell.split(" ").join("-");
+    const propperText = searchedSpell.split(" ").join("-").toLocaleLowerCase();
     console.log(propperText);
     try {
       const spell = await axios.get(
@@ -22,6 +22,9 @@ export default function Nav() {
       console.log(spell.data); // gets the spell and use for later use
     } catch (error) {
       console.log(error);
+      window.alert(
+        error + ". Make sure the spell is from the players handbook"
+      );
     }
   }
   return (
