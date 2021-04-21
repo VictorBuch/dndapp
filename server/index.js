@@ -1,9 +1,20 @@
 const express = require("express");
-
-const PORT = process.env.PORT || 3001;
-
 const app = express();
+const cors = require("cors");
+const PORT = 4000;
+const mongoose = require("mongoose");
+app.use(cors());
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+mongoose.connect("URL_TO_CONNECT_TO", {
+  useNewUrlParser: true,
+});
+
+const connection = mongoose.connection;
+
+connection.once("open", function () {
+  console.log("Connection with MongoDB was successful");
+});
+
+app.listen(PORT, function () {
+  console.log("Server is running on Port: " + PORT);
 });
