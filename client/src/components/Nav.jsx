@@ -1,13 +1,22 @@
+import { useContext, useState } from "react";
+import { StateManagerContext } from "./StateManager";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import axios from "axios";
 
-export default function Nav() {
+export default function Nav(props) {
   const [searchedSpell, setSearchedSpell] = useState("");
+  const { globallySearchedSpell } = useContext(StateManagerContext);
+  const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
 
   function handleSearch(e) {
-    setSearchedSpell(e.target.value);
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      handleClick(e);
+    } else {
+      setSearchedSpell(e.target.value);
+    }
   }
   async function handleClick(e) {
     e.preventDefault();
@@ -19,7 +28,8 @@ export default function Nav() {
       const spell = await axios.get(
         `https://www.dnd5eapi.co/api/spells/${propperText}`
       );
-      console.log(spell.data); // gets the spell and use for later use
+      // gets the spell and use for later use
+      setGlobalSearchedSpell(spell.data);
     } catch (error) {
       console.log(error);
       window.alert(
@@ -59,6 +69,7 @@ const StyledNav = styled(motion.nav)`
     font-weight: bold;
   }
   button {
+    display: hidden;
     font-size: 1.5rem;
     border: none;
     padding: 0.5rem 2rem;

@@ -2,10 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { StateManagerProvider } from "./components/StateManager";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateManagerProvider>
+      <App />
+    </StateManagerProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
