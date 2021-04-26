@@ -19,7 +19,7 @@ export default function SpellCardFront({
   desc,
   classes,
 }) {
-  const flipped = true;
+  const flipped = false;
   return (
     <StyledCard>
       {flipped ? (
