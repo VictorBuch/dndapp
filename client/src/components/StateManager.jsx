@@ -4,7 +4,7 @@ export const StateManagerContext = createContext();
 
 export function StateManagerProvider(props) {
   // have all the states that we want globally here
-  const [searchedSpell, setSeachedSpell] = useState();
+  const [searchedSpell, setSeachedSpell] = useState([]);
 
   // used to print the value of the states when they changes
   useEffect(() => {
@@ -14,7 +14,9 @@ export function StateManagerProvider(props) {
 
   return (
     <StateManagerContext.Provider
-      value={{ globallySearchedSpell: [searchedSpell, setSeachedSpell] }}
+      value={{
+        globallySearchedSpell: [searchedSpell, setSeachedSpell],
+      }}
     >
       {props.children}
     </StateManagerContext.Provider>

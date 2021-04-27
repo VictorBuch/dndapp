@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
@@ -19,10 +19,55 @@ export default function SpellCardFront({
   desc,
   classes,
 }) {
-  const flipped = false;
   return (
-    <StyledCard>
-      {flipped ? (
+    <StyledContainer>
+      <StyledCard>
+        <StyledCardFront>
+          <figure className="spellImg">
+            <img src="https://picsum.photos/250/250" alt="" />
+          </figure>
+          <div className="topInfo">
+            <h1>{name}</h1>
+            <div className="topInfoRight">
+              <p>Level: {level}</p>
+              {school && <p>{school.name}</p>}
+            </div>
+          </div>
+          <hr
+            style={{
+              backgroundColor: "white",
+              height: 3,
+              width: "310px",
+              padding: "0px 10px",
+              border: "none",
+            }}
+          />
+
+          <div className="otherInfo">
+            <p>
+              {casting_time}
+              {ritual && " (R)"}
+            </p>
+            <div className="range">
+              <p>{range}</p>
+
+              {/* Check if it has an aoe, if yes, show the stat */}
+              {area_of_effect && <p>{area_of_effect.size} ft.</p>}
+            </div>
+            <div className="components">
+              {components.map((element) => (
+                <p>{element} </p>
+              ))}
+            </div>
+            <p>
+              {concentration && "C. "}
+              {duration}
+            </p>
+          </div>
+        </StyledCardFront>
+      </StyledCard>
+
+      <StyledCard>
         <StyledBackCard>
           <div className="spellInfo">
             <h1>{name}</h1>
@@ -78,56 +123,14 @@ export default function SpellCardFront({
             })}
           </div>
         </StyledBackCard>
-      ) : (
-        <StyledCardFront>
-          <figure className="spellImg">
-            <img src="https://picsum.photos/250/250" alt="" />
-          </figure>
-          <div className="topInfo">
-            <h1>{name}</h1>
-            <div className="topInfoRight">
-              <p>Level: {level}</p>
-              <p>{school.name}</p>
-            </div>
-          </div>
-          <hr
-            style={{
-              backgroundColor: "white",
-              height: 3,
-              width: "310px",
-              padding: "0px 10px",
-              border: "none",
-            }}
-          />
-
-          <div className="otherInfo">
-            <p>
-              {casting_time}
-              {ritual && " (R)"}
-            </p>
-            <div className="range">
-              <p>{range}</p>
-
-              {/* Check if it has an aoe, if yes, show the stat */}
-              {area_of_effect && <p>{area_of_effect.size} ft.</p>}
-            </div>
-            <div className="components">
-              {components.map((element) => (
-                <p>{element} </p>
-              ))}
-            </div>
-            <p>
-              {concentration && "C. "}
-              {duration}
-            </p>
-          </div>
-        </StyledCardFront>
-      )}
-    </StyledCard>
+      </StyledCard>
+    </StyledContainer>
   );
 }
 
 // CSS styling for the general card shape
+const StyledContainer = styled.div``;
+
 const StyledCard = styled(motion.div)`
   display: flex;
   flex-direction: column;
