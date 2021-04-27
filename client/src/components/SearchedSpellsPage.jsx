@@ -8,16 +8,20 @@ export default function SearchedSpellsPage() {
   // global states
   const { globallySearchedSpell } = useContext(StateManagerContext);
   const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
-  const [localSearchedSpell, setLoaclSearchedSpell] = useState([]);
+
+  const [spells, setSpells] = useState([]);
 
   useEffect(() => {
-    setLoaclSearchedSpell(globallySearchedSpell);
-  }, [globallySearchedSpell]);
+    const copy = globalSearchedSpell;
+    setSpells(copy);
+  }, [globalSearchedSpell]);
 
   return (
     <StyledSearchSpellsPage>
       <h1 className="sectionHeader">Searched Spells</h1>
-      <StyledCardGridView></StyledCardGridView>
+      <StyledCardGridView>
+        {globalSearchedSpell && <SpellCard {...globalSearchedSpell} />}
+      </StyledCardGridView>
     </StyledSearchSpellsPage>
   );
 }

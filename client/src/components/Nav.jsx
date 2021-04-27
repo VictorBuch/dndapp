@@ -29,11 +29,7 @@ export default function Nav() {
         `https://www.dnd5eapi.co/api/spells/${propperText}`
       );
       // gets the spell and use for later use
-      const copy = globalSearchedSpell;
-      console.log("copy");
-      console.log(copy);
-      copy.push(spell.data);
-      setGlobalSearchedSpell(copy);
+      setGlobalSearchedSpell(spell.data);
     } catch (error) {
       console.log(error);
       window.alert(
