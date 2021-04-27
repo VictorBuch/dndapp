@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import axios from "axios";
 
-export default function Nav(props) {
+export default function Nav() {
   const [searchedSpell, setSearchedSpell] = useState("");
   const { globallySearchedSpell } = useContext(StateManagerContext);
   const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
@@ -29,7 +29,11 @@ export default function Nav(props) {
         `https://www.dnd5eapi.co/api/spells/${propperText}`
       );
       // gets the spell and use for later use
-      setGlobalSearchedSpell(spell.data);
+      const copy = globalSearchedSpell;
+      console.log("copy");
+      console.log(copy);
+      copy.push(spell.data);
+      setGlobalSearchedSpell(copy);
     } catch (error) {
       console.log(error);
       window.alert(
