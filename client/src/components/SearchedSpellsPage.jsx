@@ -9,13 +9,6 @@ export default function SearchedSpellsPage() {
   const { globallySearchedSpell } = useContext(StateManagerContext);
   const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
 
-  const [spells, setSpells] = useState([]);
-
-  useEffect(() => {
-    const copy = globalSearchedSpell;
-    setSpells(copy);
-  }, [globalSearchedSpell]);
-
   return (
     <StyledSearchSpellsPage>
       <h1 className="sectionHeader">Searched Spells</h1>
