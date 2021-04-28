@@ -36,11 +36,14 @@ function App() {
         const forLoop = async (_) => {
           console.log("Start");
 
-          for (
-            let index = 0;
-            index < allSpellsObject[0].results.length;
-            index++
-          ) {
+          // Use this for loop to fetch all the spells. We might want to fetch a few first and then the rest when the site has loaded
+          // because if we fetch all at once the user has to wait 1 minute to see any spells. Not nice
+          // for (
+          //   let index = 0;
+          //   index < allSpellsObject[0].results.length;
+          //   index++
+          // ) {
+          for (let index = 0; index < 1; index++) {
             const element = await axios.get(
               baseURL + allSpellsObject[0].results[index].url
             );
@@ -76,7 +79,7 @@ function App() {
     <Fragment>
       <GlobalStyle />
       <StyledApp className="App">
-        <Nav />
+        <Nav setIsSpellbookPage={setIsSpellbookPage} />
         {/* Searched spells */}
         <SearchedSpellsPage />
 

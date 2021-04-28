@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Frame, useCycle } from "framer-motion";
+import { nanoid } from "nanoid";
 
 const rotat = 180;
 var isFlipped = false;
@@ -46,7 +47,7 @@ export default function SpellCardFront({
         onClick={() => (isFlipped = !isFlipped)}
       >
         <StyledCard>
-          <StyledBackCard>
+          <StyledBackCard key={nanoid()}>
             <motion.div
               style={{
                 margin: -170,
@@ -118,7 +119,7 @@ export default function SpellCardFront({
             </motion.div>
           </StyledBackCard>
 
-          <StyledCardFront>
+          <StyledCardFront key={nanoid()}>
             <motion.div
               style={{
                 margin: 0,
