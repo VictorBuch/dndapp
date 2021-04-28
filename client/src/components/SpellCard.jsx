@@ -28,6 +28,38 @@ export default function SpellCardFront({
   // We can then call the given cycle to animate between the two states descirbed within the useCycle({state1}, {state2})
   const [animate1, cycle1] = useCycle({ rotateY: 0 }, { rotateY: 180 });
   const [animate2, cycle2] = useCycle({ rotateY: 180 }, { rotateY: 0 });
+
+  let spellImage;
+  switch (school.name) {
+    case "Transmutation":
+      spellImage = "./images/Transmut.png";
+      break;
+    case "Evocation":
+      spellImage = "./images/Evoc.png";
+      break;
+    case "Necromancy":
+      spellImage = "./images/Necro.png";
+      break;
+    case "Abjuration":
+      spellImage = "./images/Abjur.png";
+      break;
+    case "Conjuration":
+      spellImage = "./images/Conjur.png";
+      break;
+    case "Divination":
+      spellImage = "./images/Divin.png";
+      break;
+    case "Illusion":
+      spellImage = "./images/Illu.png";
+      break;
+    case "Enchantment":
+      spellImage = "./images/Encha.png";
+      break;
+    default:
+      spellImage = "https://picsum.photos/250/250";
+      break;
+  }
+
   return (
     <motion.div
       // Styling the cards' shape and positions.
@@ -151,7 +183,7 @@ export default function SpellCardFront({
           onTap={() => cycle2()}
         >
           <figure className="spellImg">
-            <img src="https://picsum.photos/250/250" alt="" />
+            <img src={spellImage} alt="" />
           </figure>
           <div className="topInfo">
             <h1>{name}</h1>
@@ -199,6 +231,11 @@ export default function SpellCardFront({
 
 // CSS styling for the front of the spell card
 const StyledCardFront = styled(motion.div)`
+  img {
+    width: 200px;
+    height: 200px;
+    /* object-fit: none; */
+  }
   .topInfo {
     display: flex;
     width: 330px;

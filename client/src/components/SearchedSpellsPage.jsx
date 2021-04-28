@@ -4,24 +4,23 @@ import SpellCard from "./SpellCard";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export default function SearchedSpellsPage() {
-  // global states
-  const { globallySearchedSpell } = useContext(StateManagerContext);
-  const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
-
+export default function SearchedSpellsPage({ globalSearchedSpell }) {
   return (
     <StyledSearchSpellsPage>
-      <h1 className="sectionHeader">Searched Spells</h1>
+      <h1 className="sectionHeader">Searched Spell:</h1>
       <StyledCardGridView>
-        {globalSearchedSpell && <SpellCard {...globalSearchedSpell} />}
+        <SpellCard {...globalSearchedSpell} />
       </StyledCardGridView>
     </StyledSearchSpellsPage>
   );
 }
 
 const StyledSearchSpellsPage = styled(motion.section)`
+  height: 50vh;
+  margin: 2rem 0;
   .sectionHeader {
     font-size: 3rem;
+    margin: 0 1.5rem;
   }
 `;
 

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import axios from "axios";
 
-export default function Nav({ setIsSpellbookPage }) {
+export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
   const [searchedSpell, setSearchedSpell] = useState("");
   const { globallySearchedSpell } = useContext(StateManagerContext);
   const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
@@ -44,13 +44,20 @@ export default function Nav({ setIsSpellbookPage }) {
     // if the button clicked is the spellbook btn make the css give it an outline by toggeling the class. And toggle the othe btn to not have it.
     // then based on the button change the state.
     if (e.target.id === "spellbookPageBtn") {
-      document.querySelector("#mySpellsPageBtn").classList.toggle("selected");
-      setIsSpellbookPage(true);
+      if (!isSpellbookPage) {
+        document.querySelector("#mySpellsPageBtn").classList.toggle("selected");
+        setIsSpellbookPage(true);
+        btn.classList.toggle("selected");
+      }
     } else {
-      document.querySelector("#spellbookPageBtn").classList.toggle("selected");
-      setIsSpellbookPage(false);
+      if (isSpellbookPage) {
+        document
+          .querySelector("#spellbookPageBtn")
+          .classList.toggle("selected");
+        setIsSpellbookPage(false);
+        btn.classList.toggle("selected");
+      }
     }
-    btn.classList.toggle("selected");
   }
 
   return (
@@ -72,7 +79,7 @@ export default function Nav({ setIsSpellbookPage }) {
             style={{
               borderLeft: "2px solid grey",
               height: "60%",
-              margin: "auto 10px",
+              margin: "auto 0.5rem",
             }}
           ></div>
           <button id="mySpellsPageBtn" onClick={pageBtnClick}>
@@ -108,7 +115,7 @@ const StyledNav = styled(motion.nav)`
   }
   .pagebtns {
     display: flex;
-    margin: 0 0 0 2rem;
+    margin: 0 0 0 1.5rem;
     button {
       display: hidden;
       font-size: 1.5rem;
@@ -117,7 +124,7 @@ const StyledNav = styled(motion.nav)`
       padding: 0.5rem 2rem;
       cursor: pointer;
       color: black;
-      background: none;
+      background: #fff;
     }
     button:hover {
       background: #9e9e9e;

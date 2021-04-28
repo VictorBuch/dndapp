@@ -16,6 +16,10 @@ import styled from "styled-components";
 import { GlobalStyle } from "./styles";
 
 function App() {
+  // global states
+  const { globallySearchedSpell } = useContext(StateManagerContext);
+  const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
+
   // loacl state
   const [isSpellbookPage, setIsSpellbookPage] = useState(true);
   const [loadedAllSpells, setLoadedAllSpells] = useState([]);
@@ -45,7 +49,7 @@ function App() {
           // ) {
           for (let index = 0; index < 10; index++) {
             const element = await axios.get(
-              baseURL + allSpellsObject[0].results[index].url
+              baseURL + allSpellsObject[0].results[index * 20].url
             );
             // console.log("element");
             // console.log(element.data);
@@ -72,18 +76,26 @@ function App() {
   if (allSpellsAreFetched) {
     allSpellsPage = <AllSpellsPage loadedAllSpells={loadedAllSpells} />;
   } else {
-    allSpellsPage = <h1>Working</h1>;
+    allSpellsPage = (
+      <h1 style={{ fontSize: "3rem", margin: "2rem 1.5rem" }}>
+        The 🧙 is fetching spells, please wait
+      </h1>
+    );
   }
 
   return (
     <Fragment>
       <GlobalStyle />
       <StyledApp className="App">
-        <Nav setIsSpellbookPage={setIsSpellbookPage} />
+        <Nav
+          setIsSpellbookPage={setIsSpellbookPage}
+          isSpellbookPage={isSpellbookPage}
+        />
         {/* Searched spells */}
-        <SearchedSpellsPage />
+        {globalSearchedSpell && (
+          <SearchedSpellsPage globalSearchedSpell={globalSearchedSpell} />
+        )}
 
-        {/* <SearchedSpellsPage globalSearchedSpell={globalSearchedSpell} /> */}
         {isSpellbookPage ? allSpellsPage : <MySpellsPage />}
       </StyledApp>
     </Fragment>

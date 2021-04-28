@@ -12,15 +12,17 @@ export default function AllSpellsPage({ loadedAllSpells }) {
 
   return (
     <StyledAllSpellsPage>
-      <h1 className="sectionHeader">All Spells</h1>
+      <h1 className="sectionHeader">All Spells:</h1>
       <StyledCardGridView>{cards}</StyledCardGridView>
     </StyledAllSpellsPage>
   );
 }
 
 const StyledAllSpellsPage = styled(motion.section)`
+  margin: 2rem 0;
   .sectionHeader {
     font-size: 3rem;
+    margin: 0 1.5rem;
   }
 `;
 
