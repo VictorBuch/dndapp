@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Frame, useCycle } from "framer-motion";
+import { nanoid } from "nanoid";
 
 var isFlipped = false;
 

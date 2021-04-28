@@ -16,10 +16,6 @@ import styled from "styled-components";
 import { GlobalStyle } from "./styles";
 
 function App() {
-  // global states
-  const { globallySearchedSpell } = useContext(StateManagerContext);
-  const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
-
   // loacl state
   const [isSpellbookPage, setIsSpellbookPage] = useState(true);
   const [loadedAllSpells, setLoadedAllSpells] = useState([]);
@@ -34,12 +30,19 @@ function App() {
         const spell = await axios.get(`https://www.dnd5eapi.co/api/spells/`);
         // gets the spell and use for later use
         allSpellsObject.push(spell.data);
-        // console.log("All Spells Object results");
-        // console.log(allSpellsObject[0].results);
+        console.log("All Spells Object results");
+        console.log(allSpellsObject[0].results);
 
         const forLoop = async (_) => {
           console.log("Start");
 
+          // Use this for loop to fetch all the spells. We might want to fetch a few first and then the rest when the site has loaded
+          // because if we fetch all at once the user has to wait 1 minute to see any spells. Not nice
+          // for (
+          //   let index = 0;
+          //   index < allSpellsObject[0].results.length;
+          //   index++
+          // ) {
           for (let index = 0; index < 10; index++) {
             const element = await axios.get(
               baseURL + allSpellsObject[0].results[index].url
@@ -76,7 +79,7 @@ function App() {
     <Fragment>
       <GlobalStyle />
       <StyledApp className="App">
-        <Nav />
+        <Nav setIsSpellbookPage={setIsSpellbookPage} />
         {/* Searched spells */}
         <SearchedSpellsPage />
 
