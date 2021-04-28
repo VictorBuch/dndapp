@@ -40,7 +40,7 @@ function App() {
         const forLoop = async (_) => {
           console.log("Start");
 
-          for (let index = 0; index < 1; index++) {
+          for (let index = 0; index < 10; index++) {
             const element = await axios.get(
               baseURL + allSpellsObject[0].results[index].url
             );

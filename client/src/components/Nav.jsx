@@ -30,6 +30,7 @@ export default function Nav() {
       );
       // gets the spell and use for later use
       setGlobalSearchedSpell(spell.data);
+      console.log(spell.data);
     } catch (error) {
       console.log(error);
       window.alert(
