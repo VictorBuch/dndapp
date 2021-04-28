@@ -16,10 +16,6 @@ import styled from "styled-components";
 import { GlobalStyle } from "./styles";
 
 function App() {
-  // global states
-  const { globallySearchedSpell } = useContext(StateManagerContext);
-  const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
-
   // loacl state
   const [isSpellbookPage, setIsSpellbookPage] = useState(true);
   const [loadedAllSpells, setLoadedAllSpells] = useState([]);
@@ -34,13 +30,17 @@ function App() {
         const spell = await axios.get(`https://www.dnd5eapi.co/api/spells/`);
         // gets the spell and use for later use
         allSpellsObject.push(spell.data);
-        // console.log("All Spells Object results");
-        // console.log(allSpellsObject[0].results);
+        console.log("All Spells Object results");
+        console.log(allSpellsObject[0].results);
 
         const forLoop = async (_) => {
           console.log("Start");
 
-          for (let index = 0; index < 1; index++) {
+          for (
+            let index = 0;
+            index < allSpellsObject[0].results.length;
+            index++
+          ) {
             const element = await axios.get(
               baseURL + allSpellsObject[0].results[index].url
             );

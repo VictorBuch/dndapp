@@ -184,7 +184,9 @@ export default function SpellCardFront({
 }
 
 // CSS styling for the general card shape
-const StyledContainer = styled.div``;
+const StyledContainer = styled.div`
+  position: absolute;
+`;
 
 const StyledCard = styled(motion.div)`
   display: flex;
