@@ -1,11 +1,13 @@
 import SpellCard from "./SpellCard";
 
+import { nanoid } from "nanoid";
+
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
 export default function AllSpellsPage({ loadedAllSpells }) {
   const cards = loadedAllSpells.map((element) => {
-    return <SpellCard key={element} {...element} />;
+    return <SpellCard key={nanoid()} {...element} />;
   });
 
   return (

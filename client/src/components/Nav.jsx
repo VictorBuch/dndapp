@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import axios from "axios";
 
-export default function Nav() {
+export default function Nav({ setIsSpellbookPage }) {
   const [searchedSpell, setSearchedSpell] = useState("");
   const { globallySearchedSpell } = useContext(StateManagerContext);
   const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
@@ -37,30 +37,121 @@ export default function Nav() {
       );
     }
   }
+
+  function pageBtnClick(e) {
+    let btn = document.querySelector("#" + e.target.id);
+    // if the button clicked is the spellbook btn make the css give it an outline by toggeling the class. And toggle the othe btn to not have it.
+    // then based on the button change the state.
+    if (e.target.id === "spellbookPageBtn") {
+      document.querySelector("#mySpellsPageBtn").classList.toggle("selected");
+      setIsSpellbookPage(true);
+    } else {
+      document.querySelector("#spellbookPageBtn").classList.toggle("selected");
+      setIsSpellbookPage(false);
+    }
+    btn.classList.toggle("selected");
+  }
+
   return (
     <StyledNav>
       <Logo>
         <h1>Spellbooker Helper online</h1>
       </Logo>
-      <form action="">
-        <input
-          value={searchedSpell}
-          onChange={handleSearch}
-          type="text"
-          placeholder="Search for spells"
-        />
-        <button onClick={handleClick}>Search</button>
-      </form>
+      <div className="row">
+        <div className="pagebtns">
+          <button
+            id="spellbookPageBtn"
+            className="selected"
+            onClick={pageBtnClick}
+          >
+            Spellbook
+          </button>
+
+          <div
+            style={{
+              borderLeft: "2px solid grey",
+              height: "60%",
+              margin: "auto 10px",
+            }}
+          ></div>
+          <button id="mySpellsPageBtn" onClick={pageBtnClick}>
+            My Spells
+          </button>
+        </div>
+        <StyledSearch>
+          <form action="">
+            <input
+              value={searchedSpell}
+              onChange={handleSearch}
+              type="text"
+              placeholder="Search for spells"
+            />
+            <button onClick={handleClick}>Search</button>
+          </form>
+        </StyledSearch>
+        <div className="login">
+          <button>Register</button>
+          <button>login</button>
+        </div>
+      </div>
     </StyledNav>
   );
 }
 
 const StyledNav = styled(motion.nav)`
-  padding: 3rem 5rem;
+  display: flex;
+  flex-direction: column;
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+  }
+  .pagebtns {
+    display: flex;
+    margin: 0 0 0 2rem;
+    button {
+      display: hidden;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 12px;
+      padding: 0.5rem 2rem;
+      cursor: pointer;
+      color: black;
+      background: none;
+    }
+    button:hover {
+      background: #9e9e9e;
+    }
+
+    .selected {
+      background: #696969;
+    }
+  }
+  .login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      display: hidden;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      padding: 0.8rem 1.5rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      background: #696969;
+      color: white;
+    }
+  }
+`;
+
+const StyledSearch = styled(motion.div)`
   text-align: center;
   overflow-wrap: break-word;
+  align-items: center;
+  justify-content: center;
+
   input {
-    width: 30%;
+    width: 50%;
     font-size: 1.5rem;
     padding: 0.5rem;
     border: none;
