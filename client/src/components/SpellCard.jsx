@@ -215,17 +215,20 @@ export default function SpellCardFront({
               <p>{range}</p>
 
               {/* Check if it has an aoe, if yes, show the stat */}
-              {area_of_effect && <p>{area_of_effect.size} ft.</p>}
+              {area_of_effect && <p>{area_of_effect.size} feet</p>}
             </div>
             <div className="components">
               {components.map((element) => (
                 <p>{element} </p>
               ))}
             </div>
-            <p>
-              {concentration && "C. "}
-              {duration}
-            </p>
+            <div className="frontDuration">
+              <p>
+                {concentration && "C. "}
+                {duration != "Instantaneous" && duration}
+                {duration == "Instantaneous" && "Instant"}
+              </p>
+            </div>
           </div>
         </motion.div>
       </StyledCardFront>
@@ -252,9 +255,13 @@ const StyledCardFront = styled(motion.div)`
     }
     display: flex;
     width: 330px;
-    padding: 2px 15px;
+    padding: 2px 10px;
     justify-content: space-between;
     text-align: start;
+  }
+
+  .topInfoRight {
+    text-align: right;
   }
 
   .otherInfo {
@@ -263,6 +270,13 @@ const StyledCardFront = styled(motion.div)`
     padding: 5px 15px 0px 15px;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .frontDuration {
+    width: 70px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    text-align-last: center;
   }
 
   .range {
