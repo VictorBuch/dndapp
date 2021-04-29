@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//schema for users in the database
 let userSchema = new Schema({
     userName: {
         type: String,
@@ -10,7 +11,7 @@ let userSchema = new Schema({
         type: String,
         required: true
     },
-    addedSpells: {
+    addedSpells: { //array for storing spell URL's i
         type: [String]
     }
 },{
