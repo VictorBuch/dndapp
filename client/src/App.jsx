@@ -26,12 +26,7 @@ export default function App() {
         const spell = await axios.get(`https://www.dnd5eapi.co/api/spells/`);
         // gets the spell and use for later use
         allSpellsObject.push(spell.data);
-        // console.log("All Spells Object results");
-        // console.log(allSpellsObject[0].results);
-
         const forLoop = async (_) => {
-          // console.log("Start");
-
           // Use this for loop to fetch all the spells. We might want to fetch a few first and then the rest when the site has loaded
           // because if we fetch all at once the user has to wait 1 minute to see any spells. Not nice
           // for (
@@ -47,7 +42,6 @@ export default function App() {
             copy.push(element.data);
             setLoadedAllSpells(copy);
           }
-          // console.log("End");
           setAllSpellsAreFetched(true);
         };
         forLoop();
@@ -59,7 +53,6 @@ export default function App() {
       }
     }
     fetchAllSpells();
-    console.log("Fetching all spells");
   }, []);
 
   return (
