@@ -7,12 +7,16 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
-  const [searchedSpell, setSearchedSpell] = useState("");
-  const { globallySearchedSpell, globalIsLoggedIn } = useContext(
+  // global state
+  const { globallySearchedSpell, globalIsLoggedIn, globalUser } = useContext(
     StateManagerContext
   );
   const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
   const [isLoggedIn, setIsLoggedIn] = globalIsLoggedIn;
+  const [user, setUser] = globalUser;
+
+  // local state
+  const [searchedSpell, setSearchedSpell] = useState("");
 
   function handleSearch(e) {
     if (e.keyCode === 13) {
@@ -70,6 +74,12 @@ export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
     setGlobalSearchedSpell();
   }
 
+  function handleLogout() {
+    if (window.confirm("Are you sure you want to log out?")) {
+      setIsLoggedIn(false);
+    }
+  }
+
   return (
     <StyledNav>
       <Logo>
@@ -110,8 +120,8 @@ export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
         <div className="login">
           {isLoggedIn ? (
             <>
-              <h3 id="username">Username</h3>
-              <button id="logout" onClick={() => setIsLoggedIn(false)}>
+              <h3 id="username">{user.userName}</h3>
+              <button id="logout" onClick={handleLogout}>
                 Log Out
               </button>
             </>

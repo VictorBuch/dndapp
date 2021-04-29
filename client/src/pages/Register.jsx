@@ -1,13 +1,28 @@
+import { useContext, useState } from "react";
+import { Redirect } from "react-router-dom";
+import { StateManagerContext } from "../components/StateManager";
+
+import axios from "axios";
+
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
 export default function Register() {
+  //global state
+  const { globalUser, globalIsLoggedIn } = useContext(StateManagerContext);
+  const [user, setUser] = globalUser;
+  const [isLoggedIn, setIsLoggedIn] = globalIsLoggedIn;
+
+  // local state
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
 
-  function handleSubmit(e) {
+  if (isLoggedIn) {
+    return <Redirect to="/" push={true} />;
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
     // bunch of checking if the info is correctly formed
     if (username === "") {
@@ -36,8 +51,20 @@ export default function Register() {
     }
 
     console.log("Register info ok, proceed");
-    // TODO:
-    // Register the user
+    try {
+      const user = await axios.post("http://localhost:4000/api/signup", {
+        userName: username,
+        password: password,
+        password_confirmation: passwordConf,
+      });
+      // console.log(user.data.token);
+      // console.log(user.data.message);
+      setUser(user.data.message);
+      setIsLoggedIn(true);
+    } catch (error) {
+      window.alert(error + ". \nUser already exists");
+      console.log(error);
+    }
   }
   return (
     <StyledRegisterPage>
@@ -72,7 +99,7 @@ export default function Register() {
           />
         </label>
         <div>
-          <button type="submit">Login</button>
+          <button type="submit">Register</button>
         </div>
       </form>
     </StyledRegisterPage>

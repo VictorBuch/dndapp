@@ -1,17 +1,42 @@
-import styled from "styled-components";
+import { useContext, useState } from "react";
+import { Redirect } from "react-router-dom";
+
+import { StateManagerContext } from "../components/StateManager";
+
 import { motion } from "framer-motion";
-import { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
 
 export default function Login() {
+  //global state
+  const { globalUser, globalIsLoggedIn } = useContext(StateManagerContext);
+  const [user, setUser] = globalUser;
+  const [isLoggedIn, setIsLoggedIn] = globalIsLoggedIn;
+
+  // local state
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  if (isLoggedIn) {
+    return <Redirect to="/" push={true} />;
+  }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(username);
-    console.log(password);
-    // TODO:
-    // Login checking with the DB and set global user login state
+    // console.log(username);
+    // console.log(password);
+    try {
+      const user = await axios.post("http://localhost:4000/api/signin", {
+        userName: username,
+        password: password,
+      });
+      // console.log(user.data.token);
+      // console.log(user.data.message);
+      setUser(user.data.message);
+      setIsLoggedIn(true);
+    } catch (error) {
+      window.alert(error + ". \nUser not found");
+      console.log(error);
+    }
   }
 
   return (

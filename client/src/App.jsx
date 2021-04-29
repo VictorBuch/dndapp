@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
 // Router
@@ -9,24 +9,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SpellBook from "./pages/SpellBook";
 
-// Components
-import Nav from "./components/Nav";
-import { StateManagerContext } from "./components/StateManager";
-import AllSpellsPage from "./components/AllSpellsPage";
-import MySpellsPage from "./components/MySpellsPage";
-import SearchedSpellsPage from "./components/SearchedSpellsPage";
-
 // styles
-import styled from "styled-components";
 import { GlobalStyle } from "./styles";
 
-function App() {
-  // global states
-  const { globallySearchedSpell } = useContext(StateManagerContext);
-  const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
-
+export default function App() {
   // loacl state
-  const [isSpellbookPage, setIsSpellbookPage] = useState(true);
   const [loadedAllSpells, setLoadedAllSpells] = useState([]);
   const [allSpellsAreFetched, setAllSpellsAreFetched] = useState(false);
 
@@ -96,9 +83,3 @@ function App() {
     </Fragment>
   );
 }
-const StyledApp = styled.section`
-  height: 100vh;
-  background-color: #fff;
-`;
-
-export default App;

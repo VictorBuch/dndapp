@@ -12,7 +12,9 @@ export function StateManagerProvider(props) {
   useEffect(() => {
     console.log("searchedSpell: ");
     console.log(searchedSpell);
-  }, [searchedSpell]); // change this array to include all states we want to track
+    console.log("user");
+    console.log(user);
+  }, [searchedSpell, user]); // change this array to include all states we want to track
 
   return (
     <StateManagerContext.Provider

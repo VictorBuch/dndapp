@@ -1,5 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
 
 // Components
 import Nav from "../components/Nav";
