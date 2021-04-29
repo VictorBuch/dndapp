@@ -4,10 +4,19 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import axios from "axios";
 
+import { Link } from "react-router-dom";
+
 export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
-  const [searchedSpell, setSearchedSpell] = useState("");
-  const { globallySearchedSpell } = useContext(StateManagerContext);
+  // global state
+  const { globallySearchedSpell, globalIsLoggedIn, globalUser } = useContext(
+    StateManagerContext
+  );
   const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
+  const [isLoggedIn, setIsLoggedIn] = globalIsLoggedIn;
+  const [user, setUser] = globalUser;
+
+  // local state
+  const [searchedSpell, setSearchedSpell] = useState("");
 
   function handleSearch(e) {
     if (e.keyCode === 13) {
@@ -18,6 +27,7 @@ export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
       setSearchedSpell(e.target.value);
     }
   }
+
   async function handleClick(e) {
     e.preventDefault();
     setSearchedSpell("");
@@ -64,6 +74,12 @@ export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
     setGlobalSearchedSpell();
   }
 
+  function handleLogout() {
+    if (window.confirm("Are you sure you want to log out?")) {
+      setIsLoggedIn(false);
+    }
+  }
+
   return (
     <StyledNav>
       <Logo>
@@ -102,8 +118,23 @@ export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
           </form>
         </StyledSearch>
         <div className="login">
-          <button>Register</button>
-          <button>login</button>
+          {isLoggedIn ? (
+            <>
+              <h3 id="username">{user.userName}</h3>
+              <button id="logout" onClick={handleLogout}>
+                Log Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/register">
+                <button id="register">Register</button>
+              </Link>
+              <Link to="/login">
+                <button>login</button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </StyledNav>
@@ -142,7 +173,8 @@ const StyledNav = styled(motion.nav)`
   .login {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
+    margin-right: 1.5rem;
     button {
       display: hidden;
       font-size: 1rem;
@@ -153,6 +185,21 @@ const StyledNav = styled(motion.nav)`
       cursor: pointer;
       background: #696969;
       color: white;
+      width: 125px;
+      text-align: center;
+    }
+    #register {
+      background: white;
+      border: 2px solid #696969;
+      color: #696969;
+    }
+    #logout {
+      background: white;
+      border: 2px solid #696969;
+      color: #696969;
+    }
+    #username {
+      margin: 0 1rem;
     }
   }
 `;

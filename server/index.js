@@ -1,20 +1,27 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
 const PORT = 4000;
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+require('dotenv').config();
+
+const authRoutes = require('./routes/auth');
+const { db } = require('./models/User');
+
+const app = express();
+
+// connect to Mongo DB
+mongoose.connect("mongodb+srv://Geyza:bYThslM2YVAnWbJX@cluster0.gg33a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+}).then(() => console.log('db connected'));
+
+app.use(bodyParser.json());
 app.use(cors());
 
-mongoose.connect("URL_TO_CONNECT_TO", {
-  useNewUrlParser: true,
-});
+app.use('/api', authRoutes);
 
-const connection = mongoose.connection;
-
-connection.once("open", function () {
-  console.log("Connection with MongoDB was successful");
-});
-
-app.listen(PORT, function () {
-  console.log("Server is running on Port: " + PORT);
+app.listen(PORT, () => {
+  console.log("Server running on 4000")
 });

@@ -1,27 +1,19 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
-//components
-import Nav from "./components/Nav";
-import { StateManagerContext } from "./components/StateManager";
-import AllSpellsPage from "./components/AllSpellsPage";
-import MySpellsPage from "./components/MySpellsPage";
-import SearchedSpellsPage from "./components/SearchedSpellsPage";
+// Router
+import { Switch, Route } from "react-router-dom";
 
-// for testing
-import SpellCard from "./components/SpellCard";
+// Pages
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import SpellBook from "./pages/SpellBook";
 
 // styles
-import styled from "styled-components";
 import { GlobalStyle } from "./styles";
 
-function App() {
-  // global states
-  const { globallySearchedSpell } = useContext(StateManagerContext);
-  const [globalSearchedSpell, setGlobalSearchedSpell] = globallySearchedSpell;
-
+export default function App() {
   // loacl state
-  const [isSpellbookPage, setIsSpellbookPage] = useState(true);
   const [loadedAllSpells, setLoadedAllSpells] = useState([]);
   const [allSpellsAreFetched, setAllSpellsAreFetched] = useState(false);
 
@@ -70,38 +62,24 @@ function App() {
     console.log("Fetching all spells");
   }, []);
 
-  var allSpellsPage;
-  if (allSpellsAreFetched) {
-    allSpellsPage = <AllSpellsPage loadedAllSpells={loadedAllSpells} />;
-  } else {
-    allSpellsPage = (
-      <h1 style={{ fontSize: "3rem", margin: "2rem 1.5rem" }}>
-        The 🧙 is fetching spells, please wait
-      </h1>
-    );
-  }
-
   return (
     <Fragment>
       <GlobalStyle />
-      <StyledApp className="App">
-        <Nav
-          setIsSpellbookPage={setIsSpellbookPage}
-          isSpellbookPage={isSpellbookPage}
-        />
-        {/* Searched spells */}
-        {globalSearchedSpell && (
-          <SearchedSpellsPage globalSearchedSpell={globalSearchedSpell} />
-        )}
-
-        {isSpellbookPage ? allSpellsPage : <MySpellsPage />}
-      </StyledApp>
+      <Switch>
+        {/* Routes are used to render pages with mathing URL */}
+        <Route path="/" exact>
+          <SpellBook
+            allSpellsAreFetched={allSpellsAreFetched}
+            loadedAllSpells={loadedAllSpells}
+          />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+      </Switch>
     </Fragment>
   );
 }
-const StyledApp = styled.section`
-  height: 100vh;
-  background-color: #fff;
-`;
-
-export default App;
