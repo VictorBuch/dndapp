@@ -106,6 +106,8 @@ export default function SpellCardFront({
         borderRadius: 25,
         height: 400,
         width: 330,
+        import:
+          "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap",
       }}
       // When tapping within the borders of the cards' background we cue
       // animation 'cycle1' or 'cycle2' depending on which side of the card is facing upwards.
@@ -147,12 +149,12 @@ export default function SpellCardFront({
           </div>
           <div className="moreInfoTop">
             <div className="castingTime">
-              <p>Casting Time:</p>
+              <h1>Casting Time:</h1>
               <p>{casting_time}</p>
             </div>
 
             <div className="rangeBack">
-              <p>Range:</p>
+              <h1>Range:</h1>
               <p>{range}</p>
               {area_of_effect && <p>{area_of_effect.size} ft.</p>}
             </div>
@@ -168,7 +170,7 @@ export default function SpellCardFront({
           />
           <div className="moreInfoBottom">
             <div className="componentsBack">
-              <p>Components:</p>
+              <h1>Components:</h1>
               <p>{material}</p>
               <div className="components">
                 {components.map((element) => (
@@ -177,12 +179,14 @@ export default function SpellCardFront({
               </div>
             </div>
             <div className="duration">
-              <p>Duration:</p>
+              <h1>Duration:</h1>
               {concentration && <p>Concentration</p>}
               <p>{duration}</p>
             </div>
           </div>
-          <div className="spellDesc">{desc[0]}</div>
+          <div className="spellDesc">
+            <p>{desc[0]}</p>
+          </div>
           <div className="class">
             {classes.map((element, index) => {
               if (index === classes.length - 1) {
@@ -248,17 +252,20 @@ export default function SpellCardFront({
               <p>{range}</p>
 
               {/* Check if it has an aoe, if yes, show the stat */}
-              {area_of_effect && <p>{area_of_effect.size} ft.</p>}
+              {area_of_effect && <p>{area_of_effect.size} feet</p>}
             </div>
             <div className="components">
               {components.map((element) => (
                 <p>{element} </p>
               ))}
             </div>
-            <p>
-              {concentration && "C. "}
-              {duration}
-            </p>
+            <div className="frontDuration">
+              <p>
+                {concentration && "C. "}
+                {duration != "Instantaneous" && duration}
+                {duration == "Instantaneous" && "Instant"}
+              </p>
+            </div>
           </div>
         </motion.div>
       </StyledCardFront>
@@ -270,6 +277,8 @@ export default function SpellCardFront({
 const StyledCardFront = styled(motion.div)`
   user-select: none;
   cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+
   .addSpell {
     position: absolute;
     top: 0px;
@@ -279,21 +288,27 @@ const StyledCardFront = styled(motion.div)`
       color: red;
     }
   }
+
   img {
     width: 200px;
     height: 200px;
     object-fit: contain;
   }
   .topInfo {
-    margin-top: 3rem;
+    margin-top: 4rem;
     h1 {
       font-size: 1.5rem;
+      align-self: flex-end;
     }
     display: flex;
     width: 330px;
-    padding: 10px 15px;
+    padding: 2px 10px;
     justify-content: space-between;
     text-align: start;
+  }
+
+  .topInfoRight {
+    text-align: right;
   }
 
   .otherInfo {
@@ -302,6 +317,13 @@ const StyledCardFront = styled(motion.div)`
     padding: 5px 15px 0px 15px;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .frontDuration {
+    width: 70px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    text-align-last: center;
   }
 
   .range {
@@ -317,21 +339,32 @@ const StyledCardFront = styled(motion.div)`
 const StyledCardBack = styled(motion.div)`
   user-select: none;
   cursor: pointer;
+  font-family: "Open Sans", sans-serif;
   .spellInfo {
     height: 53px;
     width: 100%;
+    h1 {
+      font-size: 24px;
+    }
   }
 
   .moreInfoTop {
-    padding: 0px 20px;
+    padding: 2px 35px 0px 20px;
     display: flex;
     flex-direction: row;
     text-align: left;
     justify-content: space-between;
-    height: 71px;
+    height: 65px;
     width: 100%;
     background-color: #fefefc;
     color: black;
+    h1 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 14px;
+    }
     .rangeBack {
       display: flex;
       flex-direction: column;
@@ -339,12 +372,12 @@ const StyledCardBack = styled(motion.div)`
   }
 
   .moreInfoBottom {
-    padding: 0px 20px;
+    padding: 2px 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     text-align: start;
-    height: 71px;
+    height: 65px;
     width: 100%;
     background-color: #fefefc;
     color: black;
@@ -352,9 +385,31 @@ const StyledCardBack = styled(motion.div)`
     .componentsBack {
       display: flex;
       flex-direction: column;
+      width: 9rem;
+      margin-bottom: 5px;
+      overflow: auto;
+
+      h1 {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 14px;
+      }
 
       .components {
         display: flex;
+        p {
+          font-size: 11px;
+        }
+      }
+    }
+    .duration {
+      h1 {
+        font-size: 16px;
+      }
+      p {
+        font-size: 14px;
       }
     }
   }
@@ -362,10 +417,14 @@ const StyledCardBack = styled(motion.div)`
   .spellDesc {
     background-color: #ececec;
     color: black;
-    padding: 15px;
+    padding: 8px 10px 8px 10px;
     width: 100%;
     height: 175px;
     text-align: justify;
+    overflow: auto;
+    p {
+      font-size: 13px;
+    }
   }
 
   .class {
