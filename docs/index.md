@@ -1,37 +1,22 @@
-## Welcome to GitHub Pages
+## Welcome to the D&D spellbooker helper
 
-You can use the [editor on GitHub](https://github.com/VictorBuch/dndapp/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+This tool is made to help the spellcasters of D&D keep track of spells and find new ones to try!
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## How to install and run the website
 
-### Markdown
+1. download the zipped code from: https://github.com/VictorBuch/dndapp/releases/tag/1.0
+2. extract the zipped code somewhere
+3. install node.js from https://nodejs.org/en/
+4. open the extracted folder with code editor of choice
+5. if the editor supports powershell type: 
+```powershell
+cd .\client\
+``` 
+if the editor doesnt open the terminal on mac or command promt on PC and cd into the extracted folder and cd .\client\
+6. type npm install, wait for it to finnish
+7. open a new terminal window and cd into extracted folder and cd .\server\
+8. type npm install again and wait for it to finnish
+9. in both of the terminals type npm start
+10. now both the server and the client should start and the client should start in your prefered browser
+11. Explore the app
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/VictorBuch/dndapp/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
