@@ -5,6 +5,8 @@ export const StateManagerContext = createContext();
 export function StateManagerProvider(props) {
   // have all the states that we want globally here
   const [searchedSpell, setSeachedSpell] = useState();
+  const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // figure out what to set here
 
   // used to print the value of the states when they changes
   useEffect(() => {
@@ -16,6 +18,8 @@ export function StateManagerProvider(props) {
     <StateManagerContext.Provider
       value={{
         globallySearchedSpell: [searchedSpell, setSeachedSpell],
+        globalUser: [user, setUser],
+        globalIsLoggedIn: [isLoggedIn, setIsLoggedIn],
       }}
     >
       {props.children}

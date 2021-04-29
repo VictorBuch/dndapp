@@ -1,15 +1,20 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-//components
+// Router
+import { Switch, Route } from "react-router-dom";
+
+// Pages
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import SpellBook from "./pages/SpellBook";
+
+// Components
 import Nav from "./components/Nav";
 import { StateManagerContext } from "./components/StateManager";
 import AllSpellsPage from "./components/AllSpellsPage";
 import MySpellsPage from "./components/MySpellsPage";
 import SearchedSpellsPage from "./components/SearchedSpellsPage";
-
-// for testing
-import SpellCard from "./components/SpellCard";
 
 // styles
 import styled from "styled-components";
@@ -70,32 +75,24 @@ function App() {
     console.log("Fetching all spells");
   }, []);
 
-  var allSpellsPage;
-  if (allSpellsAreFetched) {
-    allSpellsPage = <AllSpellsPage loadedAllSpells={loadedAllSpells} />;
-  } else {
-    allSpellsPage = (
-      <h1 style={{ fontSize: "3rem", margin: "2rem 1.5rem" }}>
-        The 🧙 is fetching spells, please wait
-      </h1>
-    );
-  }
-
   return (
     <Fragment>
       <GlobalStyle />
-      <StyledApp className="App">
-        <Nav
-          setIsSpellbookPage={setIsSpellbookPage}
-          isSpellbookPage={isSpellbookPage}
-        />
-        {/* Searched spells */}
-        {globalSearchedSpell && (
-          <SearchedSpellsPage globalSearchedSpell={globalSearchedSpell} />
-        )}
-
-        {isSpellbookPage ? allSpellsPage : <MySpellsPage />}
-      </StyledApp>
+      <Switch>
+        {/* Routes are used to render pages with mathing URL */}
+        <Route path="/" exact>
+          <SpellBook
+            allSpellsAreFetched={allSpellsAreFetched}
+            loadedAllSpells={loadedAllSpells}
+          />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+      </Switch>
     </Fragment>
   );
 }
