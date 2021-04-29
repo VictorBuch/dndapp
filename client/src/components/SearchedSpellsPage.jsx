@@ -16,7 +16,6 @@ export default function SearchedSpellsPage({ globalSearchedSpell }) {
 }
 
 const StyledSearchSpellsPage = styled(motion.section)`
-  height: 50vh;
   margin: 2rem 0;
   .sectionHeader {
     font-size: 3rem;

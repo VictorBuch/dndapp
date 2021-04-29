@@ -231,16 +231,23 @@ export default function SpellCardFront({
 
 // CSS styling for the front of the spell card
 const StyledCardFront = styled(motion.div)`
+  user-select: none;
+  cursor: pointer;
   img {
     width: 200px;
     height: 200px;
-    /* object-fit: none; */
+    object-fit: contain;
   }
   .topInfo {
+    margin-top: 3rem;
+    h1 {
+      font-size: 1.5rem;
+    }
     display: flex;
     width: 330px;
     padding: 10px 15px;
     justify-content: space-between;
+    text-align: start;
   }
 
   .otherInfo {
@@ -262,6 +269,8 @@ const StyledCardFront = styled(motion.div)`
 
 // CSS styling for the back of the card
 const StyledCardBack = styled(motion.div)`
+  user-select: none;
+  cursor: pointer;
   .spellInfo {
     height: 53px;
     width: 100%;

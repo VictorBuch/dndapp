@@ -60,10 +60,14 @@ export default function Nav({ setIsSpellbookPage, isSpellbookPage }) {
     }
   }
 
+  function clearSearchedSpells() {
+    setGlobalSearchedSpell();
+  }
+
   return (
     <StyledNav>
       <Logo>
-        <h1>Spellbooker Helper online</h1>
+        <h1 onClick={clearSearchedSpells}>Spellbooker Helper online</h1>
       </Logo>
       <div className="row">
         <div className="pagebtns">
@@ -112,6 +116,7 @@ const StyledNav = styled(motion.nav)`
   .row {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
+    margin-top: 1rem;
   }
   .pagebtns {
     display: flex;
@@ -163,7 +168,7 @@ const StyledSearch = styled(motion.div)`
     font-size: 1.5rem;
     padding: 0.5rem;
     border: none;
-    margin-top: 1rem;
+
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
     font-weight: bold;
   }
