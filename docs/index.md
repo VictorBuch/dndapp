@@ -4,7 +4,7 @@ This tool is made to help the spellcasters of D&D keep track of spells and find 
 
 ## How to install and run the website
 
-1. Download the zipped code from: https://github.com/VictorBuch/dndapp/releases/tag/1.0
+1. Download the zipped code from [here](https://github.com/VictorBuch/dndapp/releases/tag/1.0)
 2. Extract the zipped code somewhere
 3. Install node.js from [here](https://nodejs.org/en/)
 4. Open the extracted folder with code editor of choice
