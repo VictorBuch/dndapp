@@ -1,4 +1,4 @@
-## Welcome to the D&D spellbooker helper
+# Welcome to the D&D spellbooker helper
 
 This tool is made to help the spellcasters of D&D keep track of spells and find new ones to try!
 
@@ -16,5 +16,5 @@ This tool is made to help the spellcasters of D&D keep track of spells and find 
 10. now both the server and the client should start and the client should start in your prefered browser
 11. Explore the app :)
 
-# API used
+### API used
 D&D E5 API: https://www.dnd5eapi.co/
