@@ -275,7 +275,6 @@ export default function SpellCardFront({
 
 // CSS styling for the front of the spell card
 const StyledCardFront = styled(motion.div)`
-  user-select: none;
   cursor: pointer;
   font-family: "Open Sans", sans-serif;
 

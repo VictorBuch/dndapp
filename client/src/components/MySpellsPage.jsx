@@ -46,18 +46,18 @@ export default function MySpellsPage() {
       }
     };
     getUserSpells();
-  }, []);
+  }, [user, fetchedUserSpells]);
+
+  let cards = fetchedUserSpells.map((element) => {
+    return <SpellCard key={nanoid()} {...element} />;
+  });
 
   return (
     <StyledMySpellsPage>
       {isLoggedIn ? (
         <>
           <h1 className="sectionHeader">My Spells: </h1>
-          <StyledCardGridView>
-            {fetchedUserSpells.map((element) => {
-              return <SpellCard key={nanoid()} {...element} />;
-            })}
-          </StyledCardGridView>
+          <StyledCardGridView>{cards}</StyledCardGridView>
         </>
       ) : (
         <h1 className="sectionHeader">
@@ -77,5 +77,7 @@ const StyledMySpellsPage = styled(motion.section)`
 
 const StyledCardGridView = styled(motion.section)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(330px, 360px));
+  grid-auto-rows: auto;
+  grid-gap: 1.5rem;
 `;

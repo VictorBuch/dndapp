@@ -28,5 +28,7 @@ const StyledAllSpellsPage = styled(motion.section)`
 
 const StyledCardGridView = styled(motion.section)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(330px, 360px));
+  grid-auto-rows: auto;
+  grid-gap: 1.5rem;
 `;

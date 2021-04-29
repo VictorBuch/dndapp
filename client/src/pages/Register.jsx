@@ -75,6 +75,7 @@ export default function Register() {
           <input
             type="text"
             placeholder="JohnDoe"
+            autoFocus
             value={username}
             onChange={(e) => setUserName(e.target.value)}
           />
