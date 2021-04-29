@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { StateManagerContext } from "../components/StateManager";
+
+import axios from "axios";
+
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Frame, useCycle } from "framer-motion";
@@ -22,7 +26,13 @@ export default function SpellCardFront({
   material,
   desc,
   classes,
+  url,
 }) {
+  // global state
+  const { globalUser, globalIsLoggedIn } = useContext(StateManagerContext);
+  const [isLoggedIn, setIsLoggedIn] = globalIsLoggedIn;
+  const [user, setUser] = globalUser;
+
   // We make two new animations and cycles
   // Within the useCycle() we define the animation.
   // We can then call the given cycle to animate between the two states descirbed within the useCycle({state1}, {state2})
@@ -58,6 +68,31 @@ export default function SpellCardFront({
     default:
       spellImage = "https://picsum.photos/250/250";
       break;
+  }
+
+  async function addSpellToUser() {
+    if (!isLoggedIn) {
+      window.alert("You must be logged in to save spells");
+      return;
+    }
+    console.log(user.addedSpells);
+    if (user.addedSpells.includes(url)) {
+      window.alert("You already have this spell!");
+      return;
+    }
+    try {
+      const spellToAdd = await axios.post(
+        "http://localhost:4000/api/addspell",
+        {
+          userName: user.userName,
+          spellUrl: url,
+        }
+      );
+      console.log(spellToAdd);
+    } catch (error) {
+      window.alert(error + ". \nUser not found");
+      console.log(error);
+    }
   }
 
   return (
@@ -182,6 +217,9 @@ export default function SpellCardFront({
           animate={animate1}
           onTap={() => cycle2()}
         >
+          <span className="addSpell" onClick={addSpellToUser}>
+            &#43;
+          </span>
           <figure className="spellImg">
             <img src={spellImage} alt="" />
           </figure>
@@ -201,7 +239,6 @@ export default function SpellCardFront({
               border: "none",
             }}
           />
-
           <div className="otherInfo">
             <p>
               {casting_time}
@@ -233,6 +270,15 @@ export default function SpellCardFront({
 const StyledCardFront = styled(motion.div)`
   user-select: none;
   cursor: pointer;
+  .addSpell {
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    font-size: 3rem;
+    :hover {
+      color: red;
+    }
+  }
   img {
     width: 200px;
     height: 200px;
