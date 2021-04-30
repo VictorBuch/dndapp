@@ -11,7 +11,7 @@ This tool is made to help the spellcasters of D&D keep track of spells and find 
 5. If the editor supports powershell type: `cd .\client\` if the editor doesnt open the terminal on mac or command promt on PC and cd into the extracted folder and `cd .\client\`
 6. Type `npm install`, wait for it to finish
 7. Open a new terminal window and cd into extracted folder and `cd .\server\`
-8. Type `npm install` again and wait for it to finnish
+8. Type `npm install` again and wait for it to finish
 9. In both of the terminals type `npm start`
 10. Now both the server and the client should start and the client should start in your prefered browser
 11. Explore the app :)
