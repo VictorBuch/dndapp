@@ -16,5 +16,11 @@ This tool is made to help the spellcasters of D&D keep track of spells and find 
 10. now both the server and the client should start and the client should start in your prefered browser
 11. Explore the app :)
 
+### If you're not familliar with D&D spells then try searching for these:
+1. Fireball
+2. Shield
+3. Detect Magic
+4. Tiny Hut
+
 ### API used
 D&D E5 API: https://www.dnd5eapi.co/
